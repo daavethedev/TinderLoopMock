@@ -19,51 +19,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/drawable_gradient">
 
-        <ImageButton
-            android:id="@+id/ib_select_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|top"
-            android:layout_margin="20dp"
-            android:background="@android:color/transparent"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:padding="10dp"
-            android:src="@drawable/ic_video"
-            android:text="Select Video"
-            android:textColor="@android:color/holo_blue_bright" />
-
-        <ImageButton
-            android:id="@+id/ib_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:layout_margin="20dp"
-            android:background="@android:color/transparent"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:padding="10dp"
-            android:src="@drawable/ic_edit"
-            android:text="Select Video"
-            android:textColor="@android:color/holo_blue_bright" />
-
-        <ImageButton
-            android:id="@+id/ib_speed_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:layout_margin="20dp"
-            android:background="@android:color/transparent"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:padding="10dp"
-            android:src="@drawable/ic_play"
-            android:text="Select Video"
-            android:textColor="@android:color/holo_blue_bright" />
-
     </FrameLayout>
 
     <LinearLayout
@@ -104,5 +59,56 @@
             android:visibility="gone" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ib_select_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:layout_margin="50dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:elevation="5dp"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_video"
+        android:text="Select Video"
+        android:textColor="@android:color/holo_blue_bright" />
+
+    <ImageButton
+        android:id="@+id/ib_speed_up"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="50dp"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:elevation="5dp"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_play"
+        android:text="Select Video"
+        android:textColor="@android:color/holo_blue_bright" />
+
+    <ImageButton
+        android:id="@+id/ib_edit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/drawable_button_back"
+        android:clickable="true"
+        android:elevation="5dp"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_image_effects"
+        android:text="Select Video"
+        android:tint="@android:color/black" />
 
 </FrameLayout>

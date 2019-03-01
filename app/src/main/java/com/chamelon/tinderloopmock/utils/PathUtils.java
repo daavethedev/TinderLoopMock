@@ -1,4 +1,4 @@
-package com.chamelon.tinderloopmock;
+package com.chamelon.tinderloopmock.utils;
 
 import android.content.ContentUris;
 import android.content.Context;

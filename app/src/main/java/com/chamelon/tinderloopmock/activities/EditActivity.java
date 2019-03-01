@@ -1,4 +1,4 @@
-package com.chamelon.tinderloopmock;
+package com.chamelon.tinderloopmock.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,15 +14,16 @@ import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.chamelon.tinderloopmock.info.Info;
+import com.chamelon.tinderloopmock.utils.PathUtils;
+import com.chamelon.tinderloopmock.R;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
-import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg;

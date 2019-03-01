@@ -1,4 +1,4 @@
-package com.chamelon.tinderloopmock;
+package com.chamelon.tinderloopmock.info;
 
 public interface Info {
 

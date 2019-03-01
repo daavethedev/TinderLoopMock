@@ -502,7 +502,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                         ibSpeedUp.setVisibility(View.GONE);
                         ibEditVideo.setVisibility(View.GONE);
 
-                        addImageGallery(destFileName);
+                        refreshGallery(finalfile);
 
                         deleteTempFiles();
 
@@ -533,14 +533,14 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
         }
     }
 
-    private void addImageGallery(String outputfilename) {
+    public void refreshGallery(String path) {
 
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Video.Media.DATA, outputfilename);
-        ContentResolver resolver = getContentResolver();
-        resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(new File(path));
+        mediaScanIntent.setData(contentUri);
+        sendBroadcast(mediaScanIntent);
+
     }
-
     private void deleteTempFiles() {
 
         try {

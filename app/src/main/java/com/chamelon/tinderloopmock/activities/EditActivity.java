@@ -197,6 +197,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                 public void onFailure() {
 
                     Log.v(TAG, "Failed to load.");
+                    Toast.makeText(EditActivity.this, "Sorry, Your android version is not supported by this app.", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -438,7 +439,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
             fFmpeg.execute(command, new ExecuteBinaryResponseHandler() {
                 @Override
                 public void onFailure(String s) {
-                    Log.v(TAG, "FAILED with output : " + s);
+                    Log.d(TAG, "FAILED with output : " + s);
                     Toast.makeText(EditActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
                     crsTrimmer.setVisibility(View.GONE);
                     pDialog.hide();
@@ -542,16 +543,22 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
     private void deleteTempFiles() {
 
-        if (new File(filePath1).exists()) {
+        try {
 
-            new File(filePath1).delete();
+            if (new File(filePath1).exists()) {
+
+                new File(filePath1).delete();
+            }
+
+            if (new File(filePath2).exists()) {
+
+                new File(filePath2).delete();
+            }
+
+        } catch (NullPointerException e) {
+
+            e.printStackTrace();
         }
-
-        if (new File(filePath2).exists()) {
-
-            new File(filePath2).delete();
-        }
-
     }
 
     public boolean isTheSame(String[] arr1, String[] arr2) {

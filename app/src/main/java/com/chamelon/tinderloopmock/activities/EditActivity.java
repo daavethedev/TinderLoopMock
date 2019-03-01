@@ -294,11 +294,13 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
                     updateProgressBar();
 
+
                     vvVideoPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(final MediaPlayer mp) {
                             width = mp.getVideoWidth();
                             height = mp.getVideoHeight();
+
 
                             crsTrimmer.setMaxValue(vvVideoPlayer.getDuration() / 1000);
                             crsTrimmer.setFixGap(30);
@@ -307,6 +309,8 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                         }
                     });
 
+                    ibSpeedUp.setVisibility(View.VISIBLE);
+                    ibEditVideo.setVisibility(View.VISIBLE);
                     crsTrimmer.setVisibility(View.VISIBLE);
                     isVideoLoaded = true;
 
@@ -398,7 +402,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
         }
     }
 
-    private void executeSpeedUpCommand(String inputFileAbsolutePath) {
+    private void executeSpeedUpCommand(String inputFileAbsolutePath, float setpts) {
 
         String destPath = "/storage/emulated/0/MockTinderLoop/";
 
@@ -420,7 +424,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
             }
 
             finalfile = dest.getAbsolutePath();
-            speedUpComplexCommand = new String[]{"-y", "-i", inputFileAbsolutePath, "-an", "-filter:v", "[0:v]setpts=0.5*PTS[v]", "-b:v", "2097k", "-r", "60", "-vcodec", "mpeg4", finalfile};
+            speedUpComplexCommand = new String[]{"-y", "-i", inputFileAbsolutePath, "-an", "-filter:v", "[0:v]setpts=" + setpts + "*PTS[v]", "-b:v", "2097k", "-r", "60", "-vcodec", "mpeg4", finalfile};
             execFFmpegBinary(speedUpComplexCommand);
         }
     }
@@ -430,7 +434,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
             fFmpeg.execute(command, new ExecuteBinaryResponseHandler() {
                 @Override
                 public void onFailure(String s) {
-                    Log.d(TAG, "FAILED with output : " + s);
+                    Log.v(TAG, "FAILED with output : " + s);
                     Toast.makeText(EditActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
                     crsTrimmer.setVisibility(View.GONE);
                     pDialog.cancel();
@@ -455,22 +459,14 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
                         if (speedUpVideo) {
 
-                            executeSpeedUpCommand(fileReversedJoined);
+                            executeSpeedUpCommand(fileReversedJoined, (float) 0.5);
                             ibSpeedUp.setImageResource(R.drawable.ic_play);
                             speedUpVideo = false;
 
                         } else {
 
-                            vvVideoPlayer.stopPlayback();
-                            vvVideoPlayer.setVideoPath(fileReversedJoined);
-                            vvVideoPlayer.start();
 
-                            updateProgressBar();
-
-                            crsTrimmer.setVisibility(View.GONE);
-                            pDialog.cancel();
-                            deleteTempFiles();
-
+                            executeSpeedUpCommand(fileReversedJoined, (float) 1);
                         }
 
                         Toast.makeText(EditActivity.this, "Merging Done.", Toast.LENGTH_SHORT).show();
@@ -481,9 +477,16 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                         vvVideoPlayer.setVideoPath(finalfile);
                         vvVideoPlayer.start();
 
+                        vvVideoPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mp) {
+                                mp.setLooping(true);
+                            }
+                        });
+
                         updateProgressBar();
 
-                        Toast.makeText(EditActivity.this, "Sped Up.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditActivity.this, "Done.", Toast.LENGTH_SHORT).show();
 
                         if (new File(fileReversedJoined).exists()) {
 
@@ -492,7 +495,10 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
                         crsTrimmer.setVisibility(View.GONE);
                         pDialog.cancel();
+                        ibSpeedUp.setVisibility(View.GONE);
+                        ibEditVideo.setVisibility(View.GONE);
                         deleteTempFiles();
+
                     }
                 }
 

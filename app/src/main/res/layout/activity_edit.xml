@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|bottom"
                 android:layout_margin="30dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/drawable_button_back"
                 android:clickable="true"
                 android:elevation="5dp"
                 android:focusable="true"
@@ -47,7 +47,8 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_video"
                 android:text="Select Video"
-                android:textColor="@android:color/holo_blue_bright" />
+                android:textColor="@android:color/holo_blue_bright"
+                android:tint="@android:color/black" />
 
             <ImageButton
                 android:id="@+id/ib_speed_up"
@@ -55,7 +56,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="30dp"
-                android:background="@android:color/transparent"
+                android:background="@drawable/drawable_button_back"
                 android:clickable="true"
                 android:elevation="5dp"
                 android:focusable="true"
@@ -64,7 +65,9 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_play"
                 android:text="Select Video"
-                android:textColor="@android:color/holo_blue_bright" />
+                android:textColor="@android:color/holo_blue_bright"
+                android:tint="@android:color/black"
+                android:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/ib_edit"
@@ -81,8 +84,10 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_image_effects"
                 android:text="Select Video"
-                android:tint="@android:color/black" />
+                android:tint="@android:color/black"
+                android:visibility="gone" />
         </FrameLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,6 +1,8 @@
 package com.chamelon.tinderloopmock.activities;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -10,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -51,6 +54,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
     private String filePath1;
     private String filePath2;
     private String finalfile;
+    private String destFileName;
     private String fileReversedJoined;
 
     private Number minValue;
@@ -413,7 +417,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
             String yourRealPath = PathUtils.getPathFromUri(this, selectedVideoUri);
 
             String filePrefix = yourRealPath.substring(yourRealPath.lastIndexOf("."));
-            String destFileName = "TinderLoop";
+            destFileName = "TinderLoop";
 
             File dest = (filePrefix.equals(".webm") || filePrefix.equals(".mkv")) ? new File(externalStoragePublicDirectory, destFileName + ".mp4") : new File(externalStoragePublicDirectory, destFileName + filePrefix);
 
@@ -437,7 +441,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                     Log.v(TAG, "FAILED with output : " + s);
                     Toast.makeText(EditActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
                     crsTrimmer.setVisibility(View.GONE);
-                    pDialog.cancel();
+                    pDialog.hide();
                     deleteTempFiles();
 
                 }
@@ -464,7 +468,6 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                             speedUpVideo = false;
 
                         } else {
-
 
                             executeSpeedUpCommand(fileReversedJoined, (float) 1);
                         }
@@ -494,9 +497,12 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                         }
 
                         crsTrimmer.setVisibility(View.GONE);
-                        pDialog.cancel();
+                        pDialog.hide();
                         ibSpeedUp.setVisibility(View.GONE);
                         ibEditVideo.setVisibility(View.GONE);
+
+                        addImageGallery(destFileName);
+
                         deleteTempFiles();
 
                     }
@@ -524,6 +530,14 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
         } catch (FFmpegCommandAlreadyRunningException e) {
             // do nothing for now
         }
+    }
+
+    private void addImageGallery(String outputfilename) {
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Video.Media.DATA, outputfilename);
+        ContentResolver resolver = getContentResolver();
+        resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
     }
 
     private void deleteTempFiles() {

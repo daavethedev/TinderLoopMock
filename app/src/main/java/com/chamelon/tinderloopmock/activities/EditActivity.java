@@ -1,8 +1,6 @@
 package com.chamelon.tinderloopmock.activities;
 
 import android.Manifest;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -12,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,9 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.chamelon.tinderloopmock.R;
 import com.chamelon.tinderloopmock.info.Info;
 import com.chamelon.tinderloopmock.utils.PathUtils;
-import com.chamelon.tinderloopmock.R;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.deep.videotrimmer.DeepVideoTrimmer;
@@ -106,6 +103,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
         sbVideoProgress = findViewById(R.id.sb_video_progress);
 
         dvtTrimmer.setMaxDuration(4);
+        dvtTrimmer.setDestinationPath("/storage/emulated/0/MockTinderLoop/cut_video.mp4");
 
         if (selfPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 

@@ -42,6 +42,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
     private FFmpeg fFmpeg;
     private Handler mHandler;
+    private ImageButton ibList;
     private TextView tvProgress;
     private ImageButton ibSpeedUp;
     private VideoView vvVideoPlayer;
@@ -70,7 +71,6 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
     private int width, height;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +92,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
         mHandler = new Handler();
 
+        ibList = findViewById(R.id.ib_list);
         ibEditVideo = findViewById(R.id.ib_edit);
         ibSpeedUp = findViewById(R.id.ib_speed_up);
         tvProgress = findViewById(R.id.tv_progress);
@@ -282,6 +283,12 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                 speedUpVideo = true;
 
             }
+        }
+
+        if (v == ibList) {
+
+            Intent i = new Intent(this, ListActivity.class);
+            startActivity(i);
         }
     }
 
@@ -541,6 +548,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
         sendBroadcast(mediaScanIntent);
 
     }
+
     private void deleteTempFiles() {
 
         try {

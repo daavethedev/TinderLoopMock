@@ -7,13 +7,7 @@
     android:animateLayoutChanges="true"
     tools:context=".activities.EditActivity">
 
-    <com.deep.videotrimmer.DeepVideoTrimmer
-        android:id="@+id/dvt_trimmer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <VideoView
-        android:visibility="gone"
         android:id="@+id/vv_video_player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -25,8 +25,6 @@ import com.chamelon.tinderloopmock.info.Info;
 import com.chamelon.tinderloopmock.utils.PathUtils;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
-import com.deep.videotrimmer.DeepVideoTrimmer;
-import com.deep.videotrimmer.interfaces.OnTrimVideoListener;
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.github.hiteshsondhi88.libffmpeg.FFmpegLoadBinaryResponseHandler;
@@ -49,7 +47,6 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
     private ImageButton ibEditVideo;
     private SweetAlertDialog pDialog;
     private ImageButton ibSelectVideo;
-    private DeepVideoTrimmer dvtTrimmer;
     private CrystalRangeSeekbar crsTrimmer;
 
     private String filePath1;
@@ -96,14 +93,10 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
         ibEditVideo = findViewById(R.id.ib_edit);
         ibSpeedUp = findViewById(R.id.ib_speed_up);
         tvProgress = findViewById(R.id.tv_progress);
-        dvtTrimmer = findViewById(R.id.dvt_trimmer);
         crsTrimmer = findViewById(R.id.range_seekbar);
         vvVideoPlayer = findViewById(R.id.vv_video_player);
         ibSelectVideo = findViewById(R.id.ib_select_video);
         sbVideoProgress = findViewById(R.id.sb_video_progress);
-
-        dvtTrimmer.setMaxDuration(4);
-        dvtTrimmer.setDestinationPath("/storage/emulated/0/MockTinderLoop/cut_video.mp4");
 
         if (selfPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
@@ -141,20 +134,6 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                 }
 
                 updateProgressBar();
-            }
-        });
-
-        dvtTrimmer.setOnTrimVideoListener(new OnTrimVideoListener() {
-            @Override
-            public void getResult(Uri uri) {
-
-                filePath1 = uri.toString();
-                executeReverseVideoCommand(filePath1);
-            }
-
-            @Override
-            public void cancelAction() {
-
             }
         });
 
@@ -321,7 +300,6 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
                     vvVideoPlayer.start();
                     vvVideoPlayer.setVideoURI(selectedVideoUri);
-                    dvtTrimmer.setVideoURI(selectedVideoUri);
 
                     updateProgressBar();
 
@@ -360,6 +338,13 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
             String filePrefix = yourRealPath.substring(yourRealPath.lastIndexOf("."));
             String destFileName = "cut_video";
+
+            if (filePrefix.equals(".flv") || filePrefix.equals(".wmv")) {
+
+                Toast.makeText(this, "Sorry, Flv and wmv formats not supported.", Toast.LENGTH_SHORT).show();
+                pDialog.hide();
+                return;
+            }
 
             File dest = (filePrefix.equals(".webm") || filePrefix.equals(".mkv")) ? new File(externalStoragePublicDirectory, destFileName + ".mp4") : new File(externalStoragePublicDirectory, destFileName + filePrefix);
 
@@ -584,6 +569,16 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
         } catch (NullPointerException e) {
 
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (pDialog != null) {
+            pDialog.dismiss();
+            pDialog = null;
         }
     }
 

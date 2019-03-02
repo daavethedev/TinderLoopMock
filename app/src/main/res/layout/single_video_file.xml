@@ -3,20 +3,19 @@
     android:layout_width="100dp"
     android:layout_height="100dp"
     android:layout_gravity="center"
-    android:layout_margin="10dp">
+    android:layout_margin="5dp">
 
     <ImageView
         android:id="@+id/iv_image_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:scaleType="centerInside" />
+        android:scaleType="centerCrop" />
 
     <ImageButton
         android:id="@+id/ib_play_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="25dp"
         android:background="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"

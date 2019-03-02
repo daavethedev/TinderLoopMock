@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.chamelon.tinderloopmock.R;
 import com.chamelon.tinderloopmock.adapters.FilesListRecyclerViewAdapter;
@@ -21,6 +22,7 @@ public class ListActivity extends AppCompatActivity implements Info, FilesListRe
 
     private List<Uri> filesUri;
     private RecyclerView rvFiles;
+    private TextView tvFilesCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +30,18 @@ public class ListActivity extends AppCompatActivity implements Info, FilesListRe
         setContentView(R.layout.activity_list);
 
         rvFiles = findViewById(R.id.rv_files);
+        tvFilesCount = findViewById(R.id.tv_files_count);
 
         filesUri = new ArrayList<>();
         getUriList();
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         FilesListRecyclerViewAdapter adapter = new FilesListRecyclerViewAdapter(filesUri, this);
         rvFiles.setAdapter(adapter);
         rvFiles.setLayoutManager(gridLayoutManager);
         adapter.notifyDataSetChanged();
 
-
+        tvFilesCount.setText("Files(" + filesUri.size() + ")");
     }
 
     private void getUriList() {

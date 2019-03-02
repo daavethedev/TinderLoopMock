@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".activities.ListActivity">
 
     <android.support.v7.widget.Toolbar
@@ -17,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:padding="10dp"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager" />
+        android:padding="10dp" />
 
 </FrameLayout>

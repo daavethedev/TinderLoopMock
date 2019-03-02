@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -31,8 +32,10 @@ public class ListActivity extends AppCompatActivity implements Info, FilesListRe
         filesUri = new ArrayList<>();
         getUriList();
 
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         FilesListRecyclerViewAdapter adapter = new FilesListRecyclerViewAdapter(filesUri, this);
         rvFiles.setAdapter(adapter);
+        rvFiles.setLayoutManager(gridLayoutManager);
         adapter.notifyDataSetChanged();
 
 
@@ -49,7 +52,7 @@ public class ListActivity extends AppCompatActivity implements Info, FilesListRe
 
             Uri fileUri = Uri.parse(files[i].getAbsolutePath());
 
-            if (files[i].getName().contains("MockTinderLoop")) {
+            if (files[i].getName().contains("TinderLoop")) {
 
                 filesUri.add(fileUri);
             }

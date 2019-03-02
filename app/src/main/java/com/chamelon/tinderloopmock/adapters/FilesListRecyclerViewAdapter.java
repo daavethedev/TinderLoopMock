@@ -32,13 +32,12 @@ public class FilesListRecyclerViewAdapter extends RecyclerView.Adapter<FilesList
     public FilesListRecyclerViewAdapter(List<Uri> uriList, Context context) {
         this.uriList = uriList;
         this.context = context;
-        this.onItemClickedListener = (OnItemClickedListener) this;
+        this.onItemClickedListener = (OnItemClickedListener) context;
     }
 
     @NonNull
     @Override
     public ViewHolderList onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.single_video_file, viewGroup, false);
         return new ViewHolderList(view);
     }
@@ -52,15 +51,8 @@ public class FilesListRecyclerViewAdapter extends RecyclerView.Adapter<FilesList
 
     private Bitmap getThumbnailBitmap(Uri fileUri) {
 
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-        Cursor cursor = context.getContentResolver().query(fileUri, filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String picturePath = cursor.getString(columnIndex);
-        cursor.close();
-
-        return ThumbnailUtils.createVideoThumbnail(picturePath, MediaStore.Video.Thumbnails.MICRO_KIND);
-
+        Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(fileUri.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
+        return bitmap;
     }
 
     @Override

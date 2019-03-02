@@ -120,6 +120,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
     private void setListeners() {
 
+        ibList.setOnClickListener(this);
         ibSpeedUp.setOnClickListener(this);
         ibEditVideo.setOnClickListener(this);
         ibSelectVideo.setOnClickListener(this);

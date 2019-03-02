@@ -131,10 +131,10 @@
 
     <ImageButton
         android:id="@+id/ib_list"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="end|top"
-        android:layout_margin="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:layout_marginLeft="100dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/drawable_button_back"
         android:clickable="true"

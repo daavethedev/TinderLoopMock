@@ -288,7 +288,6 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
             }
         }
 
-
         if (v == ibSpeedUp) {
 
             if (speedUpVideo) {

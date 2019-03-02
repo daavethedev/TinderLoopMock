@@ -7,7 +7,13 @@
     android:animateLayoutChanges="true"
     tools:context=".activities.EditActivity">
 
+    <com.deep.videotrimmer.DeepVideoTrimmer
+        android:id="@+id/dvt_trimmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <VideoView
+        android:visibility="gone"
         android:id="@+id/vv_video_player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,8 +76,8 @@
 
             <ImageButton
                 android:id="@+id/ib_speed_up"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="30dp"
                 android:background="@drawable/drawable_button_back"

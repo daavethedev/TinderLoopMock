@@ -28,6 +28,8 @@ import com.chamelon.tinderloopmock.utils.PathUtils;
 import com.chamelon.tinderloopmock.R;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.deep.videotrimmer.DeepVideoTrimmer;
+import com.deep.videotrimmer.interfaces.OnTrimVideoListener;
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.github.hiteshsondhi88.libffmpeg.FFmpegLoadBinaryResponseHandler;
@@ -50,6 +52,7 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
     private ImageButton ibEditVideo;
     private SweetAlertDialog pDialog;
     private ImageButton ibSelectVideo;
+    private DeepVideoTrimmer dvtTrimmer;
     private CrystalRangeSeekbar crsTrimmer;
 
     private String filePath1;
@@ -96,10 +99,13 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
         ibEditVideo = findViewById(R.id.ib_edit);
         ibSpeedUp = findViewById(R.id.ib_speed_up);
         tvProgress = findViewById(R.id.tv_progress);
+        dvtTrimmer = findViewById(R.id.dvt_trimmer);
         crsTrimmer = findViewById(R.id.range_seekbar);
         vvVideoPlayer = findViewById(R.id.vv_video_player);
         ibSelectVideo = findViewById(R.id.ib_select_video);
         sbVideoProgress = findViewById(R.id.sb_video_progress);
+
+        dvtTrimmer.setMaxDuration(4);
 
         if (selfPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
@@ -137,6 +143,20 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
                 }
 
                 updateProgressBar();
+            }
+        });
+
+        dvtTrimmer.setOnTrimVideoListener(new OnTrimVideoListener() {
+            @Override
+            public void getResult(Uri uri) {
+
+                filePath1 = uri.toString();
+                executeReverseVideoCommand(filePath1);
+            }
+
+            @Override
+            public void cancelAction() {
+
             }
         });
 
@@ -304,9 +324,9 @@ public class EditActivity extends AppCompatActivity implements Info, View.OnClic
 
                     vvVideoPlayer.start();
                     vvVideoPlayer.setVideoURI(selectedVideoUri);
+                    dvtTrimmer.setVideoURI(selectedVideoUri);
 
                     updateProgressBar();
-
 
                     vvVideoPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override

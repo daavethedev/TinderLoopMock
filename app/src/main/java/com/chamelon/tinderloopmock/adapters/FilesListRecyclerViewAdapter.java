@@ -32,7 +32,7 @@ public class FilesListRecyclerViewAdapter extends RecyclerView.Adapter<FilesList
     public FilesListRecyclerViewAdapter(List<Uri> uriList, Context context) {
         this.uriList = uriList;
         this.context = context;
-        onItemClickedListener = (OnItemClickedListener) this;
+        this.onItemClickedListener = (OnItemClickedListener) this;
     }
 
     @NonNull

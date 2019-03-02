@@ -1,5 +1,6 @@
 package com.chamelon.tinderloopmock.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -18,16 +19,22 @@ import java.util.List;
 public class ListActivity extends AppCompatActivity implements Info, FilesListRecyclerViewAdapter.OnItemClickedListener {
 
     private List<Uri> filesUri;
+    private RecyclerView rvFiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        rvFiles = findViewById(R.id.rv_files);
+
         filesUri = new ArrayList<>();
         getUriList();
 
         FilesListRecyclerViewAdapter adapter = new FilesListRecyclerViewAdapter(filesUri, this);
+        rvFiles.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
 
     }
 
@@ -55,5 +62,8 @@ public class ListActivity extends AppCompatActivity implements Info, FilesListRe
     @Override
     public void itemClicked(Uri fileUri) {
 
+        Intent intent = new Intent(Intent.ACTION_VIEW, fileUri);
+        intent.setDataAndType(fileUri, "video/mp4");
+        startActivity(intent);
     }
 }
